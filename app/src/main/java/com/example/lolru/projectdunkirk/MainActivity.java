@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import java.util.Set;
 
@@ -23,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Buttons
+        Button mButton1 = (Button) findViewById(R.id.btc);
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -44,13 +48,13 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(enableBtIntent, /*REQUEST_ENABLE_BT*/1);
         }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+
+        mButton1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 Log.e("Searching..", "Nearby devices");
 //                mBluetoothAdapter.startDiscovery();
-                Snackbar.make(view, "Searching for nearby devices", Snackbar.LENGTH_LONG)
+                Snackbar.make(v, "Searching for nearby devices", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
                 Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
@@ -65,8 +69,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        Log.e("HELLO WORLD", "jfdklsajf");
-
     }
 
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
