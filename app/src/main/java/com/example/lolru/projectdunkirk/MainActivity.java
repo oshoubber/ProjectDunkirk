@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.Set;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -47,9 +49,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.e("Searching..", "Nearby devices");
-                mBluetoothAdapter.startDiscovery();
+//                mBluetoothAdapter.startDiscovery();
                 Snackbar.make(view, "Searching for nearby devices", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+
+                Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
+
+                if (pairedDevices.size() > 0) {
+                    // There are paired devices. Get the name and address of each paired device.
+                    for (BluetoothDevice device : pairedDevices) {
+                        String deviceName = device.getName();
+                        String deviceHardwareAddress = device.getAddress(); // MAC address
+                        Log.e("Found device", "" + deviceHardwareAddress);
+                    }
+                }
             }
         });
         Log.e("HELLO WORLD", "jfdklsajf");
