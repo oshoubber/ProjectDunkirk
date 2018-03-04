@@ -79,20 +79,20 @@ public class ProfileStatusActivity extends AppCompatActivity {
 
                     entry.put("emergencyLevel", selectedPositionS);
 
-                    entry.put("fire", checkedEmergencies[0]);
-                    entry.put("flood", checkedEmergencies[1]);
-                    entry.put("earthquake", checkedEmergencies[2]);
-                    entry.put("trapped", checkedEmergencies[3]);
+                    entry.put("fire", Boolean.toString(checkedEmergencies[0]));
+                    entry.put("flood", Boolean.toString(checkedEmergencies[1]));
+                    entry.put("earthquake", Boolean.toString(checkedEmergencies[2]));
+                    entry.put("trapped", Boolean.toString(checkedEmergencies[3]));
 
-                    entry.put("child", checkedConditions[0]);
-                    entry.put("injury", checkedConditions[1]);
-                    entry.put("disability", checkedConditions[2]);
-                    entry.put("elderly", checkedConditions[3]);
+                    entry.put("child", Boolean.toString(checkedConditions[0]));
+                    entry.put("injury", Boolean.toString(checkedConditions[1]));
+                    entry.put("disability", Boolean.toString(checkedConditions[2]));
+                    entry.put("elderly", Boolean.toString(checkedConditions[3]));
 
                     entry.put("time", ts);
 
-                    entry.put("latitude",  0);
-                    entry.put("longitude", 0);
+                    entry.put("latitude",  Integer.toString(0));
+                    entry.put("longitude", Integer.toString(0));
 
                     Log.e("JSON OBJECT", "" + entry.toString(2));
 

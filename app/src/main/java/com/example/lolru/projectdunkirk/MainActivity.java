@@ -83,6 +83,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        mButton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
