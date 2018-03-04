@@ -66,6 +66,8 @@ public class ProfileStatusActivity extends AppCompatActivity {
                 lastNameS = lastName.getText().toString();
                 numPeopleS = personAge.getText().toString();
                 selectedPositionS = Integer.toString(selectedPosition);
+                Long tsLong = System.currentTimeMillis()/1000;
+                String ts = tsLong.toString();
 
                 JSONObject entry = new JSONObject();
                 try {
@@ -86,6 +88,11 @@ public class ProfileStatusActivity extends AppCompatActivity {
                     entry.put("injury", checkedConditions[1]);
                     entry.put("disability", checkedConditions[2]);
                     entry.put("elderly", checkedConditions[3]);
+
+                    entry.put("time", ts);
+
+                    entry.put("latitude",  0);
+                    entry.put("longitude", 0);
 
                     Log.e("JSON OBJECT", "" + entry.toString(2));
 

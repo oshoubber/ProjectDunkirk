@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.support.design.widget.FloatingActionButton;
@@ -37,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
         //Setting up bluetooth intent filter
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
         registerReceiver(mReceiver, filter);
+
+        LocationManager locationManager = (LocationManager)
+        getSystemService(Context.LOCATION_SERVICE);
 
         //Setting up bluetooth
         final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
