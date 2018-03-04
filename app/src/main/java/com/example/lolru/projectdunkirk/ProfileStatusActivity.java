@@ -1,6 +1,10 @@
 package com.example.lolru.projectdunkirk;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +17,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class ProfileStatusActivity extends AppCompatActivity {
     String firstNameS = ""; // First Name
     String lastNameS = ""; // Last Name
@@ -21,12 +27,37 @@ public class ProfileStatusActivity extends AppCompatActivity {
     int selectedPosition = -1; // Personal Status
     boolean[] checkedEmergencies = new boolean[] {false, false, false, false }; // emergency condition
     boolean[] checkedConditions = new boolean[] {false, false, false, false }; // special condition
-
+    DunkirkBT dbt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_status);
+
+//        //Setting up bluetooth
+//        final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+//        if (mBluetoothAdapter == null) {
+//            // Device doesn't support Bluetooth
+//            Log.e("BLUETOOTH NOT SUPPORTED", "");
+//        }
+
+//        final DunkirkBT dbt = new DunkirkBT(mBluetoothAdapter);
+//        dbt.startServerThread();
+//
+
+        final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (mBluetoothAdapter == null) {
+            // Device doesn't support Bluetooth
+            Log.e("BLUETOOTH NOT SUPPORTED", "");
+        }
+
+        if (!mBluetoothAdapter.isEnabled()) {
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent, /*REQUEST_ENABLE_BT*/1);
+        }
+
+        dbt = new DunkirkBT(mBluetoothAdapter);
+        dbt.startServerThread();
 
         Button statusButton = (Button) findViewById(R.id.statusButton);
         Button emergencyButton = (Button) findViewById(R.id.emergencyButton);
@@ -36,6 +67,8 @@ public class ProfileStatusActivity extends AppCompatActivity {
         final EditText firstName = findViewById(R.id.firstName);
         final EditText lastName = findViewById(R.id.lastName);
         final EditText personAge = findViewById(R.id.numPeople);
+
+
 
         statusButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,45 +95,17 @@ public class ProfileStatusActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(ProfileStatusActivity.this, "Your profile has been recorded.", Toast.LENGTH_SHORT).show();
+
                 firstNameS = firstName.getText().toString();
                 lastNameS = lastName.getText().toString();
                 numPeopleS = personAge.getText().toString();
-                selectedPositionS = Integer.toString(selectedPosition);
-                Long tsLong = System.currentTimeMillis()/1000;
-                String ts = tsLong.toString();
+                JSONObject jsonObject = createJSONPackage();
 
-                JSONObject entry = new JSONObject();
-                try {
-                    entry.put("firstName", firstNameS);
+                ArrayList<JSONObject> jsonObjectArrayList = new ArrayList<>();
+                jsonObjectArrayList.add(jsonObject);
+//                Log.e("About to call start", "thread " + jsonObjectArrayList.size());
+                dbt.startClientThread(jsonObjectArrayList);
 
-                    entry.put("lastName", lastNameS);
-
-                    entry.put("numPeople", numPeopleS);
-
-                    entry.put("emergencyLevel", selectedPositionS);
-
-                    entry.put("fire", Boolean.toString(checkedEmergencies[0]));
-                    entry.put("flood", Boolean.toString(checkedEmergencies[1]));
-                    entry.put("earthquake", Boolean.toString(checkedEmergencies[2]));
-                    entry.put("trapped", Boolean.toString(checkedEmergencies[3]));
-
-                    entry.put("child", Boolean.toString(checkedConditions[0]));
-                    entry.put("injury", Boolean.toString(checkedConditions[1]));
-                    entry.put("disability", Boolean.toString(checkedConditions[2]));
-                    entry.put("elderly", Boolean.toString(checkedConditions[3]));
-
-                    entry.put("time", ts);
-
-                    entry.put("latitude",  Integer.toString(0));
-                    entry.put("longitude", Integer.toString(0));
-
-                    Log.e("JSON OBJECT", "" + entry.toString(2));
-
-                } catch (Exception e) {
-                    Log.e("ERROR", "COULD NOT CREATE JSON OBJECT");
-                }
-
-                finish();
             }
         });
     }
@@ -148,5 +153,46 @@ public class ProfileStatusActivity extends AppCompatActivity {
                 .setPositiveButton(getString(R.string.dialog_ok), null)
                 .setNegativeButton(getString(R.string.dialog_cancel), null)
                 .show();
+    }
+
+    JSONObject createJSONPackage() {
+
+        selectedPositionS = Integer.toString(selectedPosition);
+        Long tsLong = System.currentTimeMillis()/1000;
+        String ts = tsLong.toString();
+
+        JSONObject entry = new JSONObject();
+        try {
+            entry.put("firstName", firstNameS);
+
+            entry.put("lastName", lastNameS);
+
+            entry.put("numPeople", numPeopleS);
+
+            entry.put("emergencyLevel", selectedPositionS);
+
+            entry.put("fire", Boolean.toString(checkedEmergencies[0]));
+            entry.put("flood", Boolean.toString(checkedEmergencies[1]));
+            entry.put("earthquake", Boolean.toString(checkedEmergencies[2]));
+            entry.put("trapped", Boolean.toString(checkedEmergencies[3]));
+
+            entry.put("child", Boolean.toString(checkedConditions[0]));
+            entry.put("injury", Boolean.toString(checkedConditions[1]));
+            entry.put("disability", Boolean.toString(checkedConditions[2]));
+            entry.put("elderly", Boolean.toString(checkedConditions[3]));
+
+            entry.put("time", ts);
+
+            entry.put("latitude",  Integer.toString(0));
+            entry.put("longitude", Integer.toString(0));
+            entry.put("mac", "A0:91:69:98:B1:3D");
+
+            Log.e("JSON OBJECT", "" + entry.toString(2));
+
+        } catch (Exception e) {
+            Log.e("ERROR", "COULD NOT CREATE JSON OBJECT");
+        }
+
+        return entry;
     }
 }

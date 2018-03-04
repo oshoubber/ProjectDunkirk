@@ -21,6 +21,8 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
+//    static DunkirkBT dbt;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,31 +30,11 @@ public class MainActivity extends AppCompatActivity {
 
         // Buttons
         final Button mButton1 = (Button) findViewById(R.id.prff);
-        Button mButton2 = (Button) findViewById(R.id.btc);
-        Button mButton3 = (Button) findViewById(R.id.feed);
-
+        final Button mButton2 = (Button) findViewById(R.id.btc);
+        final Button mButton3 = (Button) findViewById(R.id.feed);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        //Setting up bluetooth intent filter
-        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-        registerReceiver(mReceiver, filter);
-
-        LocationManager locationManager = (LocationManager)
-        getSystemService(Context.LOCATION_SERVICE);
-
-        //Setting up bluetooth
-        final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        if (mBluetoothAdapter == null) {
-            // Device doesn't support Bluetooth
-            Log.e("BLUETOOTH NOT SUPPORTED", "");
-        }
-
-        if (!mBluetoothAdapter.isEnabled()) {
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBtIntent, /*REQUEST_ENABLE_BT*/1);
-        }
 
         mButton1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,27 +45,6 @@ public class MainActivity extends AppCompatActivity {
         }
         );
 
-        mButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("Searching..", "Nearby devices");
-//                mBluetoothAdapter.startDiscovery();
-                Snackbar.make(v, "Searching for nearby devices", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-
-                Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
-
-                if (pairedDevices.size() > 0) {
-                    // There are paired devices. Get the name and address of each paired device.
-                    for (BluetoothDevice device : pairedDevices) {
-                        String deviceName = device.getName();
-                        String deviceHardwareAddress = device.getAddress(); // MAC address
-                        Log.e("Found device", "" + deviceHardwareAddress);
-                    }
-                }
-            }
-        });
-
         mButton3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,21 +52,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
-        public void onReceive(Context context, Intent intent) {
-            Log.i("CALLED FUNCTION", "BCAST RECEIVER");
-            String action = intent.getAction();
-            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-                // Discovery has found a device. Get the BluetoothDevice
-                // object and its info from the Intent.
-                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                String deviceName = device.getName();
-                String deviceHardwareAddress = device.getAddress(); // MAC address
-                Log.e("HELLO WORLD", "jfdklsajf");
-            }
-        }
-    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
