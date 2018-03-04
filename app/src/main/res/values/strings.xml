@@ -5,7 +5,7 @@
     <string name="profile">Profile</string>
     <string name="firstname">First Name</string>
     <string name="lastname">Last Name</string>
-    <string name="age">Age</string>
+    <string name="numParty"># of people in party</string>
     <string name="emergencyStatus">Select Personal Status</string>
     <string name="emergencyLevel">Select Emergency Level</string>
     <string name="dialog_cancel">Cancel</string>

@@ -52,7 +52,7 @@
             android:layout_width="match_parent"
             android:inputType="number"
             android:layout_height="wrap_content"
-            android:hint="@string/age" />
+            android:hint="@string/numParty" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -107,6 +107,7 @@
         android:paddingTop="18dp">
 
     <Button
+        android:id="@+id/updateButton"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:theme="@style/Button1"

@@ -6,8 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class ProfileStatusActivity extends AppCompatActivity {
+    int selectedPosition = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +19,7 @@ public class ProfileStatusActivity extends AppCompatActivity {
         Button statusButton = (Button) findViewById(R.id.statusButton);
         Button emergencyButton = (Button) findViewById(R.id.emergencyButton);
         Button specialButton = (Button) findViewById(R.id.specialButton);
+        Button submitButton = (Button) findViewById(R.id.updateButton);
 
 
         statusButton.setOnClickListener(new View.OnClickListener() {
@@ -39,20 +42,28 @@ public class ProfileStatusActivity extends AppCompatActivity {
                 createAlertDialog2();
             }
         });
+
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ProfileStatusActivity.this, "Your profile has been recorded.", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
     }
 
     void createAlertDialog1() {
         String[] singleChoiceItems = getResources().getStringArray(R.array.SelectEmergencyLevel);
         final AlertDialog.Builder dialog1 = new AlertDialog.Builder(ProfileStatusActivity.this);
         dialog1.setTitle(getString(R.string.emergencyLevel));
-        dialog1.setSingleChoiceItems(singleChoiceItems, -1, new DialogInterface.OnClickListener() {
+        dialog1.setSingleChoiceItems(singleChoiceItems, selectedPosition, new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int i) {
-                dialog.dismiss();
-                int selectedPosition = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
+            public void onClick(DialogInterface dialog,  int i) {
+                selectedPosition = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
             }
         })
                 .setNegativeButton(getString(R.string.dialog_cancel), null)
+                .setPositiveButton(getString(R.string.dialog_ok), null)
                 .show();
     }
     void createAlertDialog2() {
