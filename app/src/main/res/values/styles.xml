@@ -18,6 +18,11 @@
         <item name="android:textColor">@color/colorBlack</item>
     </style>
 
+    <style name="MediumBlackFont">
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
     <style name="LargeWhiteFont">
         <item name="android:textSize">40sp</item>
         <item name="android:textColor">@color/colorWhite</item>
@@ -26,7 +31,13 @@
     <style name="Button1" parent="Theme.AppCompat.Light">
         <item name="colorControlHighlight">@color/colorPrimaryDark</item>
         <item name="colorButtonNormal">@color/colorPrimary</item>
-        <item name="android:textColor">#ffffff</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="Button2" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/GreyDark</item>
+        <item name="colorButtonNormal">@color/Grey</item>
+        <item name="android:textColor">@color/colorWhite</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

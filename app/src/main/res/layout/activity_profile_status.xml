@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="8dp"
+    android:orientation="vertical"
+    tools:context="com.example.lolru.projectdunkirk.ProfileStatusActivity">
+
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:paddingBottom="16dp"
+        android:layout_marginStart="8dp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="@string/firstname" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:paddingBottom="16dp"
+        android:layout_marginStart="8dp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="@string/lastname" />
+
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:inputType="number"
+            android:layout_height="wrap_content"
+            android:hint="@string/age" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp">
+
+    <Button
+        android:id="@+id/statusButton"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="@string/emergencyStatus"/>
+
+    </LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="16dp">
+
+    <Button
+        android:id="@+id/emergencyButton"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="@string/emergencyCondition"/>
+
+</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp">
+
+        <Button
+            android:id="@+id/specialButton"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text="@string/specialCondition"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="18dp">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:theme="@style/Button1"
+        android:text="@string/updateProfile"/>
+
+    </LinearLayout>
+
+</LinearLayout>

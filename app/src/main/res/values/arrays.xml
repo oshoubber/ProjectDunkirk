@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="SelectEmergencyLevel">
+        <item>1 - Not in danger (not urgent, healthy)</item>
+        <item>2 - Potentially in danger (affected, not urgent) </item>
+        <item>3 - In danger (highly effected, dire conditions, special condition)</item>
+    </string-array>
+
+    <string-array name="SelectEmergencies">
+        <item>Child</item>
+        <item>Injury</item>
+        <item>Disability</item>
+        <item>Elderly</item>
+    </string-array>
+
+    <string-array name="SelectEmergencyCondition">
+        <item>Fire</item>
+        <item>Flood</item>
+        <item>Earthquake</item>
+        <item>Trapped</item>
+    </string-array>
+
+
+</resources>

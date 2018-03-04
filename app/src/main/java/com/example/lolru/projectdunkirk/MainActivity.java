@@ -26,8 +26,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Buttons
-        Button mButton1 = (Button) findViewById(R.id.btc);
-        Button mButton2 = (Button) findViewById(R.id.prff);
+        final Button mButton1 = (Button) findViewById(R.id.prff);
+        Button mButton2 = (Button) findViewById(R.id.btc);
+        Button mButton3 = (Button) findViewById(R.id.feed);
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -49,8 +50,16 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(enableBtIntent, /*REQUEST_ENABLE_BT*/1);
         }
 
-
         mButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent profileStatus = new Intent(MainActivity.this, ProfileStatusActivity.class);
+                startActivity(profileStatus);
+            }
+        }
+        );
+
+        mButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.e("Searching..", "Nearby devices");
