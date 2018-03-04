@@ -7,14 +7,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import org.json.*;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class ProfileStatusActivity extends AppCompatActivity {
     String firstNameS = ""; // First Name
     String lastNameS = ""; // Last Name
-    String ageS = "";   // # people in party
+    String numPeopleS = "";   // # people in party
+    String selectedPositionS = "";
     int selectedPosition = -1; // Personal Status
     boolean[] checkedEmergencies = new boolean[] {false, false, false, false }; // emergency condition
     boolean[] checkedConditions = new boolean[] {false, false, false, false }; // special condition
@@ -30,9 +33,9 @@ public class ProfileStatusActivity extends AppCompatActivity {
         Button specialButton = (Button) findViewById(R.id.specialButton);
         Button submitButton = (Button) findViewById(R.id.updateButton);
 
-        final TextInputLayout firstName = findViewById(R.id.firstName);
-        final TextInputLayout lastName = findViewById(R.id.lastName);
-        final TextInputLayout personAge = findViewById(R.id.personAge);
+        final EditText firstName = findViewById(R.id.firstName);
+        final EditText lastName = findViewById(R.id.lastName);
+        final EditText personAge = findViewById(R.id.numPeople);
 
         statusButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,11 +62,36 @@ public class ProfileStatusActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(ProfileStatusActivity.this, "Your profile has been recorded.", Toast.LENGTH_SHORT).show();
-                firstNameS = firstName.getEditText().toString();
-                lastNameS = lastName.getEditText().toString();
-                ageS = personAge.getEditText().toString();
+                firstNameS = firstName.getText().toString();
+                lastNameS = lastName.getText().toString();
+                numPeopleS = personAge.getText().toString();
+                selectedPositionS = Integer.toString(selectedPosition);
 
-                JSONObject dataPacket = new JSONObject();
+                JSONObject entry = new JSONObject();
+                try {
+                    entry.put("firstName", firstNameS);
+
+                    entry.put("lastName", lastNameS);
+
+                    entry.put("numPeople", numPeopleS);
+
+                    entry.put("emergencyLevel", selectedPositionS);
+
+                    entry.put("fire", checkedEmergencies[0]);
+                    entry.put("flood", checkedEmergencies[1]);
+                    entry.put("earthquake", checkedEmergencies[2]);
+                    entry.put("trapped", checkedEmergencies[3]);
+
+                    entry.put("child", checkedConditions[0]);
+                    entry.put("injury", checkedConditions[1]);
+                    entry.put("disability", checkedConditions[2]);
+                    entry.put("elderly", checkedConditions[3]);
+
+                    Log.e("JSON OBJECT", "" + entry.toString(2));
+
+                } catch (Exception e) {
+                    Log.e("ERROR", "COULD NOT CREATE JSON OBJECT");
+                }
 
                 finish();
             }
