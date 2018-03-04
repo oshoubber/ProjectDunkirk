@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Buttons
         Button mButton1 = (Button) findViewById(R.id.btc);
+        Button mButton2 = (Button) findViewById(R.id.prff);
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

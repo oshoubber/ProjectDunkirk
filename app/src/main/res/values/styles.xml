@@ -15,9 +15,18 @@
 
     <style name="LargeBlackFont">
         <item name="android:textSize">30sp</item>
-        <item name="android:color">@color/colorBlack</item>
-        <item name="android:alpha">.95</item>
-"
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="LargeWhiteFont">
+        <item name="android:textSize">40sp</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="Button1" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/colorPrimaryDark</item>
+        <item name="colorButtonNormal">@color/colorPrimary</item>
+        <item name="android:textColor">#ffffff</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
